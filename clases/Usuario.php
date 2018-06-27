@@ -26,6 +26,18 @@ class usuario
 		return $usuarioBuscado;						
 	}
 
+	
+	public static function restoreDB()
+	{
+			
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("call restoreDB()");
+ 
+		
+		return $consulta->execute();
+	
+		
+	}
 
 	// public static function Traer($idParametro) 
 	// {	

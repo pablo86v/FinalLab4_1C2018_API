@@ -36,6 +36,11 @@
                 return $response->withJson("El vehiculo buscado no existe", 500);
 		}
 		
+		public static function TraerVista($request, $response, $args){
+            
+            return $response->withJson(Vehiculo::TraerVista(), 200);
+        }
+		
 		
         public static function Insertar($request, $response, $args){
 

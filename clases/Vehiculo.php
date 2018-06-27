@@ -27,7 +27,7 @@ class vehiculo
 		return $arrVehiculos;					
 	 }
 
-  	 public static function TraerConComodidades($cantPuertas,$utilitario,$aireAcondicionado) 
+  	 public static function TraerConParams($cantPuertas,$utilitario,$aireAcondicionado) 
 	 {	
 	 	$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 	 	$consulta =$objetoAccesoDato->RetornarConsulta("call spGetVehiculosConComodidades (:cantPuertas , :utilitario ,:aireAcondicionado )");
@@ -39,6 +39,18 @@ class vehiculo
 		return $arrVehiculos;					
 	 }
 
+	public static function TraerVista()
+	{
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("select * from viewListaVehiculos");
+
+		$consulta->execute();					 
+		
+		$result = $consulta->fetchAll(PDO::FETCH_ASSOC);
+		return $result;
+		
+	}
+	
 	 
 	 
 	public static function Insertar($vehiculo)

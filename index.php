@@ -26,7 +26,7 @@
 	
 	
 	//***************************  VIAJES ******************************
-    $app->group('/viajes', function () {
+    $app->group('/viaje', function () {
 
         $this->get('/traer[/]',       \ViajeApi::class . ':TraerTodos');
         $this->get('/traer-vista[/]', \ViajeApi::class . ':TraerVista');
@@ -40,7 +40,8 @@
 	//***************************  USUARIOS ******************************
 	$app->group('/usuario', function () {
 
-        $this->post('/login[/]', \usuarioApi::class . ':Login');
+        $this->post('/login[/]'    , \usuarioApi::class . ':Login');
+        $this->get ('/restoreDB[/]', \usuarioApi::class . ':restoreDB');
     });
 
 	
@@ -49,7 +50,8 @@
 
         $this->get('/traer[/]', \VehiculoApi::class . ':TraerTodos');
         $this->get('/traer-uno/{id}', \VehiculoApi::class . ':TraerUno');
-        $this->get('/traer-con-comodidades/{comodidades}', \VehiculoApi::class . ':TraerConComodidades');
+		$this->get('/traer-vista[/]', \VehiculoApi::class . ':TraerVista');
+        $this->get('/traer-con-params/{comodidades}', \VehiculoApi::class . ':TraerConParams');
         $this->post('/insertar[/]', \VehiculoApi::class . ':Insertar');
         $this->post('/guardar-imagen[/]', \VehiculoApi::class . ':GuardarImg');
     });

@@ -25,5 +25,20 @@
             }
             var_dump($usuarioBuscado);
                   
-        } 
+        }
+
+
+        public static function restoreDB($request, $response, $args)
+        {
+ 
+			$resultado = Usuario::restoreDB();
+
+			if($resultado != false)
+                return $response->withJson(true, 200);
+            else
+                return $response->withJson("Ha ocurrido un error restaurando la base. Inténtelo nuevamente.", 500);
+                  
+        }
+
+		
     }
