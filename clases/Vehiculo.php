@@ -7,16 +7,17 @@ class vehiculo
 
 	public $idVehiculo;
 	public $idEmpleado;
-	public $marca;
 	public $modelo;
 	public $anio;
  	public $color;
+ 	public $estado;
  	public $dominio;
- 	public $foto;
  	public $cantPuertas;
  	public $utilitario;
  	public $aireAcondicionado;
 
+
+	
 
  	 public static function TraerTodos() 
 	 {	
@@ -51,22 +52,36 @@ class vehiculo
 		
 	}
 	
-	 
+	public static function Update($vehiculo)
+	{
+			
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("update tbVehiculos set estado = :estado where idVehiculo=:idVehiculo");
+		$consulta->bindValue(':idVehiculo', $vehiculo->idVehiculo, PDO::PARAM_INT);
+		$consulta->bindValue(':estado', $vehiculo->estado, PDO::PARAM_STR);
+		
+		$consulta->execute();
+		return $consulta->rowCount();
+		
+	}
 	 
 	public static function Insertar($vehiculo)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into tbVehiculos (marca, modelo, anio, color, dominio, foto, cantPuertas, utilitario, aireAcondicionado) values(:marca, :modelo, :anio, :color, :dominio, :foto,  :cantPuertas, :utilitario, :aireAcondicionado)");
-		$consulta->bindValue(':marca',$vehiculo->marca, PDO::PARAM_STR);
+		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into tbVehiculos (idEmpleado, modelo, anio, color, dominio, cantPuertas, utilitario, aireAcondicionado,estado,foto) values(:idEmpleado, :modelo, :anio, :color, :dominio, :cantPuertas, :utilitario, :aireAcondicionado,:estado,:foto)");
+		
+		$consulta->bindValue(':idEmpleado',$vehiculo->idEmpleado, PDO::PARAM_INT);
 		$consulta->bindValue(':modelo',$vehiculo->modelo, PDO::PARAM_STR);
 		$consulta->bindValue(':anio', $vehiculo->anio, PDO::PARAM_STR);
 		$consulta->bindValue(':color', $vehiculo->color, PDO::PARAM_STR);
 		$consulta->bindValue(':dominio', $vehiculo->dominio, PDO::PARAM_STR);
-		$consulta->bindValue(':foto', $vehiculo->foto, PDO::PARAM_STR);
 		$consulta->bindValue(':cantPuertas', $vehiculo->cantPuertas, PDO::PARAM_STR);
 		$consulta->bindValue(':utilitario', $vehiculo->utilitario, PDO::PARAM_STR);
 		$consulta->bindValue(':aireAcondicionado', $vehiculo->aireAcondicionado, PDO::PARAM_STR);
+		$consulta->bindValue(':estado', $vehiculo->estado, PDO::PARAM_STR);
+		$consulta->bindValue(':foto', $vehiculo->foto, PDO::PARAM_STR);
 
+	
 		$consulta->execute();
 		return $objetoAccesoDato->RetornarUltimoIdInsertado();
 	}

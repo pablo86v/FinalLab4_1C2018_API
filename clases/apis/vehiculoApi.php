@@ -17,19 +17,19 @@
 
             $resultado = Vehiculo::TraerUno($id);
 
-            if(sizeof($resultado) != 0)
+            if(!is_null($resultado))
                 return $response->withJson($resultado, 200);
             else
-                return $response->withJson("El vehículo buscado no existe", 500);
+                return $response->withJson("El vehiculo buscado no existe", 500);
         }
 
-		public static function TraerConComodidades($request, $response, $args){
+		public static function TraerConParams($request, $response, $args){
 			$comodidades = explode(';',$args['comodidades']); 
 			// cantPuertas;utilitario;aireAcondicionado
 			
 		
 			
-			$resultado = Vehiculo::TraerConComodidades($comodidades[0],$comodidades[1],$comodidades[2]);
+			$resultado = Vehiculo::TraerConParams($comodidades[0],$comodidades[1],$comodidades[2]);
 			 if(sizeof($resultado) != 0)
                 return $response->withJson($resultado, 200);
             else
@@ -42,29 +42,62 @@
         }
 		
 		
+		public static function Update ($request, $response, $args){
+		
+			$datosRecibidos = $request->getParsedBody();
+			
+			$vehiculo = new Vehiculo();
+			$vehiculo->idVehiculo           = $datosRecibidos['idVehiculo'];    
+			$vehiculo->idEmpleado       = $datosRecibidos['idEmpleado'];
+			$vehiculo->modelo         = $datosRecibidos['modelo'];
+			$vehiculo->anio     = $datosRecibidos['anio'];
+			$vehiculo->color     = $datosRecibidos['color'];
+			$vehiculo->dominio   = $datosRecibidos['dominio'];
+			$vehiculo->cantPuertas   = $datosRecibidos['cantPuertas'];
+			$vehiculo->utilitario		      = $datosRecibidos['utilitario'];
+			$vehiculo->aireAcondicionado        = $datosRecibidos['aireAcondicionado'];
+			$vehiculo->estado        = $datosRecibidos['estado'];
+
+			
+			 
+			
+			$resultado = Vehiculo::Update($vehiculo);
+			
+			// var_dump($resultado);
+			
+			if($resultado != 0)
+                return $response->withJson(true, 200);
+            else
+                return $response->withJson("Ha ocurrido un error actualizando el vehiculo. Inténtelo nuevamente.", 500);
+		}
+		
+		
         public static function Insertar($request, $response, $args){
 
             $datosRecibidos = $request->getParsedBody();
 
             $vehiculo = new Vehiculo();
-            $vehiculo->marca = $datosRecibidos['marca'];
+		
+            $vehiculo->idEmpleado = $datosRecibidos['idEmpleado'];
             $vehiculo->modelo = $datosRecibidos['modelo'];
             $vehiculo->anio = $datosRecibidos['anio'];
             $vehiculo->color = $datosRecibidos['color'];
             $vehiculo->dominio = $datosRecibidos['dominio'];
-            $vehiculo->foto = $datosRecibidos['foto'];  
-            $vehiculo->cantPuertas = $datosRecibidos['puertas'];
+            $vehiculo->cantPuertas = $datosRecibidos['cantPuertas'];
             $vehiculo->utilitario = $datosRecibidos['utilitario'];
-            $vehiculo->aireAcondicionado = $datosRecibidos['aireAcond'];
+            $vehiculo->aireAcondicionado = $datosRecibidos['aireAcondicionado'];
+			$vehiculo->estado = $datosRecibidos['estado'];  
+			$vehiculo->foto = $datosRecibidos['foto'];  
 
-            // var_dump($vehiculo);
     
             $resultado = Vehiculo::Insertar($vehiculo);
-    
+		
+			// var_dump($resultado);	
+	
             if(is_numeric($resultado) == true)
                 return $response->withJson(true, 200);
             else
-                return $response->withJson("Ha ocurrido un error insertando el vehículo. Inténtelo nuevamente.", 500);
+                return $response->withJson("Ha ocurrido un error insertando el vehiculo. Intentelo nuevamente.", 500);
         }
 
         public static function GuardarImg($request, $response, $args)

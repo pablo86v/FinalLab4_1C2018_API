@@ -8,6 +8,7 @@
     require_once 'clases/apis/usuarioApi.php';
     require_once 'clases/apis/vehiculoApi.php';
     require_once 'clases/apis/viajeApi.php';
+    require_once 'clases/apis/empleadoApi.php';
 
     $config['displayErrorDetails'] = true;
     $config['addContentLengthHeader'] = false;
@@ -53,10 +54,21 @@
 		$this->get('/traer-vista[/]', \VehiculoApi::class . ':TraerVista');
         $this->get('/traer-con-params/{comodidades}', \VehiculoApi::class . ':TraerConParams');
         $this->post('/insertar[/]', \VehiculoApi::class . ':Insertar');
+		$this->post('/update',         \VehiculoApi::class . ':Update');
         $this->post('/guardar-imagen[/]', \VehiculoApi::class . ':GuardarImg');
     });
 
+	//***************************  EMPLEADOS ******************************
+    $app->group('/empleado', function () {
 
+        $this->get('/traer[/]'						,\EmpleadoApi::class . ':TraerTodos');
+        $this->get('/traer-vista[/]'				,\EmpleadoApi::class . ':TraerVista');
+		$this->get('/traer-uno/{id}'				,\EmpleadoApi::class . ':TraerUno');
+        $this->get('/traer-objeto-con-params/{id}'  ,\EmpleadoApi::class . ':TraerUnoConParams');
+        $this->post('/update'						,\EmpleadoApi::class . ':Update');
+		
+ 
+    });	
 	
 	
 	
