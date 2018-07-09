@@ -43,6 +43,7 @@
 
         $this->post('/login[/]'    , \usuarioApi::class . ':Login');
         $this->get ('/restoreDB[/]', \usuarioApi::class . ':restoreDB');
+		$this->post('/insertar[/]',  \usuarioApi::class . ':Insertar');
     });
 
 	
@@ -66,7 +67,7 @@
 		$this->get('/traer-uno/{id}'				,\EmpleadoApi::class . ':TraerUno');
         $this->get('/traer-objeto-con-params/{id}'  ,\EmpleadoApi::class . ':TraerUnoConParams');
         $this->post('/update'						,\EmpleadoApi::class . ':Update');
-		
+		$this->post('/insertar[/]'                   ,\EmpleadoApi::class . ':Insertar');
  
     });	
 	

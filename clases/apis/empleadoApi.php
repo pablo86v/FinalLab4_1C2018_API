@@ -45,57 +45,55 @@
 		
 		public static function Update ($request, $response, $args){
 		
-			$datosRecibidos = $request->getParsedBody();
+			// $datosRecibidos = $request->getParsedBody();
 			
-			$viaje = new Viaje();
-			$viaje->idViaje           = $datosRecibidos['idViaje'];    
-			$viaje->idVehiculo        = $datosRecibidos['idVehiculo'];
-			$viaje->idCliente         = $datosRecibidos['idCliente'];
-			$viaje->domicilioOrig     = $datosRecibidos['domicilioOrig'];
-			$viaje->domicilioDest     = $datosRecibidos['domicilioDest'];
-			$viaje->coordenadasOrig   = $datosRecibidos['coordenadasOrig'];
-			$viaje->coordenadasDest   = $datosRecibidos['coordenadasDest'];
-			$viaje->monto		      = $datosRecibidos['monto'];
-			$viaje->fechaViaje        = $datosRecibidos['fechaViaje'];
-			$viaje->medioPago         = $datosRecibidos['medioPago'];
+			// $viaje = new Viaje();
+			// $viaje->idViaje           = $datosRecibidos['idViaje'];    
+			// $viaje->idVehiculo        = $datosRecibidos['idVehiculo'];
+			// $viaje->idCliente         = $datosRecibidos['idCliente'];
+			// $viaje->domicilioOrig     = $datosRecibidos['domicilioOrig'];
+			// $viaje->domicilioDest     = $datosRecibidos['domicilioDest'];
+			// $viaje->coordenadasOrig   = $datosRecibidos['coordenadasOrig'];
+			// $viaje->coordenadasDest   = $datosRecibidos['coordenadasDest'];
+			// $viaje->monto		      = $datosRecibidos['monto'];
+			// $viaje->fechaViaje        = $datosRecibidos['fechaViaje'];
+			// $viaje->medioPago         = $datosRecibidos['medioPago'];
 
 			
-			// var_dump($viaje);
+			// // var_dump($viaje);
 			
-			$resultado = Empleado::Update($viaje);
+			// $resultado = Empleado::Update($viaje);
 			
-			if($resultado != 0)
-                return $response->withJson(true, 200);
-            else
-                return $response->withJson("Ha ocurrido un error actualizando el viaje. Inténtelo nuevamente.", 500);
+			// if($resultado != 0)
+                // return $response->withJson(true, 200);
+            // else
+                // return $response->withJson("Ha ocurrido un error actualizando el viaje. Inténtelo nuevamente.", 500);
 		}
 		
 		
+		public static function Insertar($request, $response, $args){
+
+            $datosRecibidos = $request->getParsedBody();
+
+            $empleado = new Empleado();
 		
-        // public static function Insertar($request, $response, $args){
-
-            // $datosRecibidos = $request->getParsedBody();
-
-            // $viaje = new Viaje();
-            // $viaje->marca = $datosRecibidos['marca'];
-            // $viaje->modelo = $datosRecibidos['modelo'];
-            // $viaje->anio = $datosRecibidos['anio'];
-            // $viaje->color = $datosRecibidos['color'];
-            // $viaje->dominio = $datosRecibidos['dominio'];
-            // $viaje->foto = $datosRecibidos['foto'];  
-            // $viaje->cantPuertas = $datosRecibidos['puertas'];
-            // $viaje->utilitario = $datosRecibidos['utilitario'];
-            // $viaje->aireAcondicionado = $datosRecibidos['aireAcond'];
-
-            // var_dump($viaje);
+  
+            $empleado->idUsuario = $datosRecibidos['idUsuario'];
+            $empleado->cuil = $datosRecibidos['cuil'];
+            $empleado->telefono = $datosRecibidos['telefono'];
     
-            // $resultado = Empleado::Insertar($viaje);
-    
-            // if(is_numeric($resultado) == true)
-                // return $response->withJson(true, 200);
-            // else
-                // return $response->withJson("Ha ocurrido un error insertando el vehículo. Inténtelo nuevamente.", 500);
-        // }
+            $resultado = Empleado::Insertar($empleado);
+		
+			// var_dump($resultado);	
+	
+            if(is_numeric($resultado) == true)
+                return $response->withJson($resultado, 200);
+            else
+                return $response->withJson("Ha ocurrido un error insertando el empleado. Intentelo nuevamente.", 500);
+        }
+		
+		
+		
 
         // public static function GuardarImg($request, $response, $args)
         // {

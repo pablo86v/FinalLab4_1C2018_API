@@ -39,6 +39,32 @@
                 return $response->withJson("Ha ocurrido un error restaurando la base. Inténtelo nuevamente.", 500);
                   
         }
+		
+		
+		public static function Insertar($request, $response, $args){
+
+            $datosRecibidos = $request->getParsedBody();
+
+            $usuario = new Usuario();
+		
+            $usuario->nombre = $datosRecibidos['nombre'];
+            $usuario->apellido = $datosRecibidos['apellido'];
+            $usuario->dni = $datosRecibidos['dni'];
+            $usuario->usuario = $datosRecibidos['usuario'];
+            $usuario->password = $datosRecibidos['password'];
+            $usuario->domicilio = $datosRecibidos['domicilio'];
+            $usuario->tipoUsuario = $datosRecibidos['tipoUsuario'];			
+			
+    
+            $resultado = Usuario::Insertar($usuario);
+		
+			// var_dump($resultado);	
+	
+            if(is_numeric($resultado) == true)
+                return $response->withJson($resultado, 200);
+            else
+                return $response->withJson("Ha ocurrido un error insertando el usuario. Intentelo nuevamente.", 500);
+        }
 
 		
     }

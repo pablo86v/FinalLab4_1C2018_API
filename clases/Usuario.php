@@ -38,6 +38,25 @@ class usuario
 	
 		
 	}
+	
+	
+	public static function Insertar($usuario)
+	{
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into tbUsuarios (nombre, apellido, dni, usuario, password, domicilio, tipoUsuario) values(:nombre, :apellido, :dni, :usuario, :password, :domicilio, :tipoUsuario)");
+		
+		
+		$consulta->bindValue(':nombre',$usuario->nombre, PDO::PARAM_STR);
+		$consulta->bindValue(':apellido', $usuario->apellido, PDO::PARAM_STR);
+		$consulta->bindValue(':dni', $usuario->dni, PDO::PARAM_STR);
+		$consulta->bindValue(':usuario', $usuario->usuario, PDO::PARAM_STR);
+		$consulta->bindValue(':password', $usuario->password, PDO::PARAM_STR);
+		$consulta->bindValue(':domicilio', $usuario->domicilio, PDO::PARAM_STR);
+		$consulta->bindValue(':tipoUsuario', $usuario->tipoUsuario, PDO::PARAM_STR);
+	
+		$consulta->execute();
+		return $objetoAccesoDato->RetornarUltimoIdInsertado();
+	}
 
 	// public static function Traer($idParametro) 
 	// {	

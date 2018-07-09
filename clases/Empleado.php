@@ -35,17 +35,17 @@ class empleado
 		return $arrViajes;					
 	 }
 
-	// public static function TraerVista()
-	// {
-		// $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		// $consulta =$objetoAccesoDato->RetornarConsulta("select * from viewListaViajes");
+	public static function TraerVista()
+	{
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("select * from viewListaChoferes");
 
-		// $consulta->execute();					 
+		$consulta->execute();					 
 		
-		// $result = $consulta->fetchAll(PDO::FETCH_ASSOC);
-		// return $result;
+		$result = $consulta->fetchAll(PDO::FETCH_ASSOC);
+		return $result;
 		
-	// }
+	}
 	
 
 	public static function TraerUno($idParametro)
@@ -75,6 +75,21 @@ class empleado
 		
 	}
 	
+	
+	public static function Insertar($empleado)
+	{
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into tbEmpleados (idUsuario, cuil, telefono) values(:idUsuario, :cuil, :telefono)");
+		
+
+		$consulta->bindValue(':idUsuario', $empleado->idUsuario, PDO::PARAM_INT);
+		$consulta->bindValue(':cuil'     , $empleado->cuil,      PDO::PARAM_STR);
+		$consulta->bindValue(':telefono' , $empleado->telefono,  PDO::PARAM_STR);
+
+	
+		$consulta->execute();
+		return $objetoAccesoDato->RetornarUltimoIdInsertado();
+	}
 
 	// public static function Update($viaje)
 	// {
