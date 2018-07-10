@@ -28,6 +28,11 @@
             return $response->withJson(Viaje::TraerVista(), 200);
         }
 		
+		public static function TraerTodosConParams($request, $response, $args){
+             $id = json_decode($args['id']);
+            return $response->withJson(Viaje::TraerTodosConParams($id), 200);
+        }
+		
 		
 		public static function Update ($request, $response, $args){
 		
@@ -44,6 +49,7 @@
 			$viaje->monto		      = $datosRecibidos['monto'];
 			$viaje->fechaViaje        = $datosRecibidos['fechaViaje'];
 			$viaje->medioPago         = $datosRecibidos['medioPago'];
+			$viaje->estado         = $datosRecibidos['estado'];
 
 			
 			// var_dump($viaje);

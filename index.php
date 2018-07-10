@@ -32,6 +32,7 @@
         $this->get('/traer[/]',       \ViajeApi::class . ':TraerTodos');
         $this->get('/traer-vista[/]', \ViajeApi::class . ':TraerVista');
         $this->get('/traer-uno/{id}', \ViajeApi::class . ':TraerUno');
+        $this->get('/traer-con-params/{id}', \ViajeApi::class . ':TraerTodosConParams');
         $this->post('/update',         \ViajeApi::class . ':Update');
 		
  
